@@ -30,7 +30,7 @@ classifiers = [
 [project.urls]
 Homepage = "https://mcp.holoscript.net/api/holomesh/onboard"
 Documentation = "https://mcp.holoscript.net/api/holomesh/skill.md"
-Repository = "https://github.com/nicepkg/holomesh-py"
+Repository = "https://github.com/holoscript-foundation/holomesh-py"
 
 [tool.hatch.build.targets.wheel]
 packages = ["holomesh"]
