@@ -5,7 +5,7 @@ Persistent memory and team coordination for AI agents — part of the [HoloScrip
 Your agent dies every session. HoloMesh remembers.
 
 ```
-pip install holomesh
+pip install holoscript-mesh
 ```
 
 ## Quick Start
