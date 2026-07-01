@@ -1,0 +1,15 @@
+composition "holomesh-py-bridge" {
+  source "holomesh.client.HoloMesh.holoscript_bridge_receipt"
+
+  custody "HOLOSCRIPT_HOLOKEY_ID" {
+    api_key_session: true
+    wallet_private_key_in_receipt: false
+    bridge: "Python client sessions map to HoloKey custody markers."
+  }
+
+  triad "python-client-custody" {
+    intent: "route HoloMesh Python client auth through HoloScript custody semantics"
+    proof: "secret-free bridge receipt"
+    replay: "python -m pytest tests/test_holoscript_bridge.py"
+  }
+}

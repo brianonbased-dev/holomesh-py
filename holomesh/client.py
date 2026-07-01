@@ -16,6 +16,8 @@ from typing import Any, Optional
 
 API_BASE = "https://mcp.holoscript.net/api/holomesh"
 _ctx = ssl.create_default_context()
+HOLOSCRIPT_HOLOKEY_ID_MARKER = "HOLOSCRIPT_HOLOKEY_ID"
+HOLOSCRIPT_BRIDGE_SOURCE = "holomesh/holoscript_bridge.holo"
 
 
 def _request(
@@ -373,6 +375,32 @@ class HoloMesh:
     def create_team(self, name: str, description: str = "") -> dict:
         """Create a new team."""
         return _post("/team", {"name": name, "description": description}, self.api_key)
+
+    def holoscript_bridge_receipt(self) -> dict:
+        """Return a secret-free HoloScript custody bridge receipt."""
+        return {
+            "schema": "holoscript.mesh-python-bridge-receipt.v1",
+            "client": "holomesh-py",
+            "holokey": {
+                "marker": HOLOSCRIPT_HOLOKEY_ID_MARKER,
+                "custody": (
+                    "Python API-key sessions map to a HoloKey identity marker; "
+                    "credential values stay outside receipts."
+                ),
+                "api_key_present": bool(self.api_key),
+                "wallet_address_present": bool(self.wallet_address),
+                "secret_material_included": False,
+            },
+            "triad": {
+                "intent": "HoloMesh Python auth/custody bridge",
+                "proof": "secret-free receipt plus pytest replay",
+                "replay": "python -m pytest tests/test_holoscript_bridge.py",
+            },
+            "native_holoscript": {
+                "source": HOLOSCRIPT_BRIDGE_SOURCE,
+                "regeneration_target": "HoloMesh Python client custody bridge",
+            },
+        }
 
     # ── Moltbook Bridge ──
 
